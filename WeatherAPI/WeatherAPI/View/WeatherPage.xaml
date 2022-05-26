@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:map="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             x:Class="WeatherAPI.View.WeatherPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar x:Name="SBSearch"
+                       HorizontalOptions="CenterAndExpand" 
+                       SearchButtonPressed="SBSearch_SearchButtonPressed"/>
+
+            <StackLayout Spacing="10" Padding="20">
+                <StackLayout HorizontalOptions="StartAndExpand">
+                    <Image
+                    x:Name="WeatherImg"
+                    Aspect="AspectFit"
+                    HeightRequest="70"
+                    WidthRequest="70" />
+                </StackLayout>
+                
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="В" FontSize="Medium"/>
+                </StackLayout>
+                
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="г." FontSize="Large"/>
+                    <Label Text="{Binding name}" FontSize="Large"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="сейчас" FontSize="Medium"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="{Binding weather[0].description}" FontSize="Large"/>
+                </StackLayout>
+                
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Температура:" FontSize="Medium"/>
+                    <Label Text="{Binding main.temp}" FontSize="Large"/>
+                    <Label Text="˚C" FontSize="Medium"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Ощущается как"/>
+
+                    <Label Text="{Binding main.feels_like}"/>
+
+                    <Label Text="˚C"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Ветер:"/>
+
+                    <Label Text="{Binding wind.direction}"/>
+                    <Label Text="{Binding wind.speed}"/>
+                    <Label Text="м/с"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Влажность:"/>
+
+                    <Label Text="{Binding main.humidity}"/>
+                    <Label Text="%"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Давление:"/>
+
+                    <Label Text="{Binding main.pressure}"/>
+                    <Label Text="мм рт. ст."/>
+                </StackLayout>
+            </StackLayout>
+            
+            <map:Map x:Name="map">
+                <map:Map.ItemTemplate>
+                    <DataTemplate>
+                        <map:Pin Position="{Binding position}"
+                             Address="{Binding name}"
+                             Label="{Binding sys.country}"/>
+                    </DataTemplate>
+                </map:Map.ItemTemplate>
+            </map:Map>
+        </StackLayout> 
+    </ContentPage.Content>
+</ContentPage>
